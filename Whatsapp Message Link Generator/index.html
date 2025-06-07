@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <meta
+      name="description"
+      content="get your github link just your username"
+    />
+    <title>Whatsapp Link Generator</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="container">
+      <hgroup>
+        <h1>Whatsapp Message Link Generator</h1>
+        <p>get a custom message by clicking the wa.me link</p>
+      </hgroup>
+    </header>
+    <main class="container">
+      <input
+        type="text"
+        id="phoneInput"
+        placeholder="Enter Whatsapp Phone Number"
+      />
+      <fieldset>
+        <input
+          type="text"
+          id="messageInput"
+          placeholder="Enter Your Custom Message"
+        />
+        <input
+          type="submit"
+          id="generateBtn"
+          value="Generate Whatsapp Link and Message"
+        />
+      </fieldset>
+      <div id="app"></div>
+    </main>
+    <!-- <footer class="container neog-footer">
+      <small>
+        go from zero to hero at full stack development with
+        <a href="https://neog.camp">neog.camp</a>
+      </small>
+    </footer> -->
+    <script>
+      const inputElement = document.getElementById("phoneInput");
+      const messageElement = document.getElementById("messageInput");
+      const buttonElement = document.getElementById("generateBtn");
+      const appElement = document.getElementById("app");
+
+      function getWhatsappLink(phoneNumber, message) {
+        const cleanedNumber = phoneNumber.replace(/[^\d]/g, ""); // keep only digits
+        const encodedMessage = encodeURIComponent(message);
+        return `https://wa.me/91${cleanedNumber}?text=${encodedMessage}`;
+      }
+
+      function handleGenerateClick() {
+        const phone = inputElement.value;
+        const message = messageElement.value;
+        const whatsappLink = getWhatsappLink(phone, message);
+
+        appElement.innerHTML = `<p>Your WaMe Link:<br/>
+          <a href="${whatsappLink}" target="_blank">${whatsappLink}</a></p>`;
+      }
+
+      buttonElement.addEventListener("click", handleGenerateClick);
+    </script>
+  </body>
+</html>
+
