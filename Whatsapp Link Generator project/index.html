@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Whatsapp Link Generator</title>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+  />
+</head>
+<body>
+  <header class="container">
+    <hgroup>
+      <h1>Whatsapp Link Generator</h1>
+      <p>Get your Whatsapp link from just your phone number</p>
+    </hgroup>
+  </header>
+
+  <main class="container">
+    <fieldset role="group">
+      <!-- Dropdown for country code with arrow -->
+      <select id="countryCode">
+        <option value="91">🇮🇳 +91 India</option>
+        <option value="1">🇺🇸 +1 USA</option>
+        <option value="44">🇬🇧 +44 UK</option>
+        <option value="61">🇦🇺 +61 Australia</option>
+        <option value="971">🇦🇪 +971 UAE</option>
+      </select>
+
+      <!-- Phone number input -->
+      <input
+        type="text"
+        id="phoneInput"
+        placeholder="Enter phone number"
+      />
+
+      <!-- Button -->
+      <input type="submit" id="generateBtn" value="Generate WaMe Link" />
+    </fieldset>
+
+    <div id="app"></div>
+  </main>
+
+  <script>
+    const phoneInput = document.getElementById("phoneInput");
+    const countryCodeInput = document.getElementById("countryCode");
+    const buttonElement = document.getElementById("generateBtn");
+    const appElement = document.getElementById("app");
+
+    function getWhatsappLink(countryCode, phoneNumber) {
+      const cleanedNumber = phoneNumber.replace(/[^\d]/g, "");
+      const fullNumber = countryCode + cleanedNumber;
+      return {
+        link: `https://wa.me/${fullNumber}`,
+        display: `+${fullNumber}`
+      };
+    }
+
+    function handleGenerateClick() {
+      const phone = phoneInput.value;
+      const country = countryCodeInput.value;
+
+      const { link, display } = getWhatsappLink(country, phone);
+
+      appElement.innerHTML = `
+        <p><strong>Your WaMe Link:</strong><br>
+        <a href="${link}" target="_blank">${link}</a><br>
+        <strong>Formatted:</strong> ${display}</p>
+      `;
+    }
+
+    buttonElement.addEventListener("click", handleGenerateClick);
+  </script>
+</body>
+</html>
